@@ -1,0 +1,77 @@
+#shit {
+    padding-left: 0;
+    text-align: center;
+}
+.mdl-layout__drawer .mdl-navigation .mdl-navigation__link {
+    padding: 10px 30px;
+}
+.mdl-navigation__link.big-mdl.big-big {
+    padding-left: 18px;
+}
+body > div > div > div.mdl-layout__drawer > span:hover {
+    /* logo hover color to blue */
+    color: #008cff;
+}
+.bookHead {
+    line-height: 64px;
+    height: 64px;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+.bookHeadMiddleFont {
+    height: 64px;
+    opacity: 0;
+    font-size: 20px;
+    padding: -0px 140px;
+    position: relative;
+    margin: 0;
+    text-align: center;
+    line-height: 64px;
+    vertical-align: middle;
+    transition: opacity .3s ease;
+}
+.bookHeadMiddleFont:hover {
+    opacity: 1;
+}
+.mdl-layout__content .page-content .bookHead nav:nth-child(1) {
+    display: inline-block;
+    float: left;
+    margin-left: 10px;
+}
+.mdl-layout__content .page-content .bookHead nav:nth-child(2) {
+    display: inline-block;
+    float: right;
+    margin-left: 10px;
+}
+.mdl-layout__content .page-content .bookHead .mdl-navigation .mdl-navigation__link {
+    margin: 10px;
+}
+.navigation.navigation-prev, .navigation.navigation-next {
+    position: absolute;
+    top: 50px;
+    bottom: 0;
+    margin: 0;
+    max-width: 150px;
+    min-width: 90px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    font-size: 40px;
+    color: #ccc;
+    text-align: center;
+    transition: all 350ms ease;
+}
+.navigation.navigation-next {
+    right: 0;
+}
+.navigation.navigation-prev:hover, .navigation.navigation-next:hover {
+    text-decoration: none;
+    color: #444;
+}
+.fa-angle-left:before {
+     content: "<";
+ }
+.fa-angle-right:before {
+    content: ">";
+}
