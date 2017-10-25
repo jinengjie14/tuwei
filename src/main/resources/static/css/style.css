@@ -493,6 +493,14 @@ div#test-editormd {
         display: none;
     }
 }
+@media (max-width: 400px){
+    .login_btn {
+        color: #fff;
+        background: #F9BF3B;
+        border: 1px solid #F9BF3B;
+        padding: 8px;
+    }
+}
 
 /*页脚*/    
 .footer {

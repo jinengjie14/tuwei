@@ -68,6 +68,7 @@ public class IndexController {
 		}
 		return new Result("/", 200, "登录成功");
 	}
+	
 	/**
 	 * 跳转到主页
 	 * @return
@@ -76,18 +77,4 @@ public class IndexController {
 	public String aaa(){
 		return "index1";
 	}
-	
-	
-	/*@GetMapping("/index")
-	public String index(Model model,GitUrl giturl){
-		model.addAttribute("giturl", giturl);
-		return "index";
-	}
-	
-	@GetMapping("/index")
-	public String index(HttpSession session){
-		session.setAttribute("userid", "b2b069d5d9cf466ba26c738822b6a6a1");
-		System.out.println(session.getAttribute("userid"));
-		return "NewFile";
-	}*/
 }
