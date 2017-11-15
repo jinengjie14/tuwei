@@ -1,0 +1,49 @@
+          <form action="#" method="post" name="form1" th:action="@{'/info/'+${info?.id}+'/update'}">
+            <div class="spacing">
+              <input class="top-title ng-pristine ng-valid ng-touched" type="text" placeholder="输入笔记标题" name="title" th:value="${info?.title}">
+              <div data-error="title"></div>
+              <div class="mdl-card__menu">
+                <a href="javascript:void(0);" title="收藏">
+                  <div class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                    <i class="material-icons navRed">favorite</i>
+                  </div>
+                </a>
+                <a href="javascript:void(0);" title="分享">
+                  <div class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                    <i class="material-icons">share</i>
+                  </div>
+                </a>
+              </div>
+              <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                <div class="section__circle-container__circle mdl-color--primary"></div>
+              </div>
+              <div id="test-editormd" style="margin-top:30px;">
+              	<textarea style="display:none;" name="markdown"></textarea>
+              </div> 
+            </div>
+            <div class="mdl-card__actions">
+            	<button type="button" name="sumbit" class="mdl-button">提交</button>
+              <!-- <input name="submit" type="submit"> -->
+            </div>
+            </form>
+<script src="../static/js/jquery-1.11.3.min.js" th:src="@{/js/jquery-1.11.3.min.js}"></script>
+<script src="../static/js/editor_md/editormd.min.js" th:src="@{/js/editor_md/editormd.min.js}"></script> 
+<!--markdown-->
+<link rel="stylesheet" href="../static/js/editor_md/css/editormd.css" th:href="@{/js/editor_md/css/editormd.css}"/>
+
+<script type="text/javascript" th:inline="javascript">
+/*<![CDATA[*/
+    $(function() {
+    	var testEditor;
+        testEditor = editormd("test-editormd", {
+            width   : "100%",
+
+            height  : 500,
+            markdown: /*[[${info?.markdown}]]*/,
+            syncScrolling : "single",
+            path    : "/js/editor_md/lib/"
+        });
+    });      
+    /*]]>*/
+</script> 
+<!--markdown end-->

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
   <title></title>
+ 
   <link href="../static/css/material.min.css" rel="stylesheet" th:href="@{/css/material.min.css}">
   <link href="../static/css/material-icons.css" rel="stylesheet" th:href="@{/css/material-icons.css}">
   <link href="../static/css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
@@ -12,12 +13,6 @@
   <link href="../static/js/editor_md/lib/codemirror/codemirror.min.css" rel="stylesheet" th:href="@{/js/editor_md/lib/codemirror/codemirror.min.css}">
 </head>
 <body>
-  <div class="home-add"><!--主页按钮-->
-    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect couvi-new" data-upgraded=",MaterialButton,MaterialRipple">
-      <i class="material-icons masked">mode_edit</i>
-      <span class="mdl-button__ripple-container"><span class="mdl-ripple is-animating"></span></span>
-    </button>
-  </div><!--主页按钮end-->
   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
     <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600 is-casting-shadow"><!--头部-->
       <div class="mdl-layout__drawer-button"><i class="material-icons">menu</i></div>
@@ -25,15 +20,14 @@
           <span class="mdl-layout-title tit bt">课时笔记</span>
           <nav class="mdl-navigation">
             <a class="mdl-navigation__link" href="javascript:void(0);"><i class="material-icons lidt">sort</i></a>
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right search0">
-                <label class="mdl-button mdl-js-button mdl-button--icon" for="fixed-header-drawer-exp">
-                  <i class="material-icons lidt">search</i>
-                </label>
-                <div class="mdl-textfield__expandable-holder">
-                  <input class="mdl-textfield__input" type="text" name="sample" id="fixed-header-drawer-exp">
-                </div>
-              </div>
             <a class="mdl-navigation__link" href="javascript:void(0);"><i class="material-icons lidt down">font_download</i></a>
+            <div class="openkx">
+            <i class="material-icons lidt ss">search</i>
+            <div class="mdl-textfield mdl-js-textfield">
+			    <form action="/info"><input class="mdl-textfield__input" type="text" id="keyword" name="keyword" onkeypress="getKeyWord();"></form>
+			    <label class="mdl-textfield__label" for="sample1">搜索...</label>
+		  </div>
+		  </div>
           </nav>
           <div class="mdl-layout-spacer"></div>
             <div class="User">
@@ -73,10 +67,10 @@
     <div class="mdl-layout__drawer left-list m10"><!--左侧菜单-->
       <span class="mdl-layout-title tit masked">课时笔记</span>
       <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="javascript:void(0);"><i class="material-icons navRed">home</i>首页</a>
-        <a class="mdl-navigation__link" href="javascript:void(0);"><i class="material-icons navBlue">add</i>新建文档</a>
+        <a class="mdl-navigation__link" href="/info"><i class="material-icons navRed">home</i>首页</a>
+        <a class="mdl-navigation__link add" href="#" th:href="@{/add}"><i class="material-icons navBlue">add</i>新建文档</a><!-- 
         <a class="mdl-navigation__link" href="javascript:void(0);"><i class="material-icons navGreen">local_offer</i>最新文档</a>
-        <a class="mdl-navigation__link" href="javascript:void(0);"><i class="material-icons navBrown">account_circle</i>我的文件</a>
+        <a class="mdl-navigation__link" href="javascript:void(0);"><i class="material-icons navBrown">account_circle</i>我的文件</a> -->
         <hr>
         <a class="mdl-navigation__link" href="javascript:void(0);"><i class="material-icons navBlue">delete</i>回收站</a>
         <a class="mdl-navigation__link" href="javascript:void(0);"><i class="material-icons navBlue">help</i>帮助</a>
@@ -113,135 +107,86 @@
               </div> 
             </div>
            </div><!--我的头部end-->
-          <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">      
-            <div class="mdl-card mdl-cell mdl-cell--12-col note"><!--card-->
+           
+          <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-phone po-re">      
+            <div class="mdl-cell mdl-cell--12-col note" th:each="item,row:${pages?.items}"><!--card-->
               <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
               <div class="section__play-btn mdl-cell mdl-cell--4-col-desktop mdl-cell--2-col-tablet mdl-cell--4-col-phone mdl-color--teal-100 mdl-color-text--white bg0"> 
               </div>
               <div class="mdl-card mdl-cell--8-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
                 <div class="mdl-card__supporting-text">
-                  <div class="pull-right More">
-                   <button id="demo-menu-lower-right3" class="mdl-button mdl-js-button mdl-button--icon">
-                      <i class="material-icons">more_vert</i>
-                    </button>
-                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right3">
-                      <li class="mdl-menu__item">分享</li>
-                      <li class="mdl-menu__item">删除</li>
-                    </ul>
-                  </div>
-                  <h4>我的笔记(1)</h4>
+                  <div class="detailMenu">
+		            <ul class="actions right-menu">
+		              <li class="dropdown action-show"><a href="#" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+		                <ul class="dropdown-menu dropdown-menu-right">
+		                  <li><a href="javascript:void(0);">分享</a></li>
+		                  <li><a href="javascript:void(0);" th:href="@{'/info/'+${item?.id}+'/delete'}" name="delete">删除</a></li>
+		                </ul>
+		              </li>
+		            </ul>
+		          </div>
+                  <a href="javascript:void(0);" th:data-edit="|/info/${item?.id}/edit|"><h4 th:text="${item?.title}">我的笔记(1)</h4></a>
                   <div class="author">
                     <div class="img-div">
                       <img src="/images/tou.jpg" alt="">
                     </div>
-                    <a href="javascript:void(0);">hhh</a> <em><i class="material-icons">date_range</i>发布于</em><span>2017-09-25</span><span>公开分享</span>
+                    <a href="javascript:void(0);">hhh</a> <em><i class="material-icons">date_range</i>发布于</em><span th:text="${#dates.format(item?.ctime, 'yyyy-MM-dd HH:mm')}">2017-09-25</span><span>公开分享</span>
                   </div>
-                  <p>阳光下的似水年华，萦绕给我们的是款款深情，在不经意间璀璨我们青葱岁月。把那些清光洒落在我们旅途中，看风轻云淡，品铮铮岁月。让阳光下的似水年华转化成诗，歌颂我们的青春。</p>
+                  <p th:text="${item?.markdown}" th:data-edit="|/info/${item?.id}/edit|">阳光下的似水年华，萦绕给我们的是款款深情，在不经意间璀璨我们青葱岁月。把那些清光洒落在我们旅途中，看风轻云淡，品铮铮岁月。让阳光下的似水年华转化成诗，歌颂我们的青春。</p>
                 </div>
               </div>
             </section>
            </div><!--card end-->
-           <div class="mdl-card mdl-cell mdl-cell--12-col note"><!--card-->
-              <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-              <div class="section__play-btn mdl-cell mdl-cell--4-col-desktop mdl-cell--2-col-tablet mdl-cell--4-col-phone mdl-color--teal-100 mdl-color-text--white bg1"> 
-              </div>
-              <div class="mdl-card mdl-cell mdl-cell--8-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
-                <div class="mdl-card__supporting-text">
-                  <div class="pull-right More">
-                   <button id="demo-menu-lower-right4" class="mdl-button mdl-js-button mdl-button--icon">
-                      <i class="material-icons">more_vert</i>
-                    </button>
-                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right4">
-                      <li class="mdl-menu__item">分享</li>
-                      <li class="mdl-menu__item">删除</li>
-                    </ul>
-                  </div>
-                  <h4>我的笔记(2)</h4>
-                  <div class="author">
-                    <div class="img-div">
-                      <img src="/images/tou.jpg" alt="">
-                    </div>
-                    <a href="javascript:void(0);">hhh</a> <em><i class="material-icons">date_range</i>发布于</em><span>2017-06-18</span><span>公开分享</span>
-                  </div>
-                  <p>阳光下的似水年华，萦绕给我们的是款款深情，在不经意间璀璨我们青葱岁月。把那些清光洒落在我们旅途中，看风轻云淡，品铮铮岁月。让阳光下的似水年华转化成诗，歌颂我们的青春。</p>
-                </div>
-              </div>
-            </section>
-           </div><!--card end-->
-           <div class="mdl-card mdl-cell mdl-cell--12-col note"><!--card-->
-              <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-              <div class="section__play-btn mdl-cell mdl-cell--4-col-desktop mdl-cell--2-col-tablet mdl-cell--4-col-phone mdl-color--teal-100 mdl-color-text--white bg2"> 
-              </div>
-              <div class="mdl-card mdl-cell mdl-cell--8-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
-                <div class="mdl-card__supporting-text">
-                  <div class="pull-right More">
-                   <button id="demo-menu-lower-right5" class="mdl-button mdl-js-button mdl-button--icon">
-                      <i class="material-icons">more_vert</i>
-                    </button>
-                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right5">
-                      <li class="mdl-menu__item">分享</li>
-                      <li class="mdl-menu__item">删除</li>
-                    </ul>
-                  </div>
-                  <h4>我的笔记(3)</h4>
-                  <div class="author">
-                    <div class="img-div">
-                      <img src="/images/tou.jpg" alt="">
-                    </div>
-                    <a href="javascript:void(0);">hhh</a> <em><i class="material-icons">date_range</i>发布于</em><span>2017-02-25</span><span>公开分享</span>
-                  </div>
-                  <p>阳光下的似水年华，萦绕给我们的是款款深情，在不经意间璀璨我们青葱岁月。把那些清光洒落在我们旅途中，看风轻云淡，品铮铮岁月。让阳光下的似水年华转化成诗，歌颂我们的青春。</p>
-                </div>
-              </div>
-            </section>
-           </div><!--card end-->
-           <div class="page text-center"><!--分页-->
-            <nav aria-label="...">
-              <ul class="pagination">
-                <li class="disabled"><a href="javascript:void(0);" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                <li class="active"><a href="javascript:void(0);">1 <span class="sr-only">(current)</span></a></li>
-                <li><a href="javascript:void(0);">2 <span class="sr-only">(current)</span></a></li>
-                <li><a href="javascript:void(0);">3 <span class="sr-only">(current)</span></a></li>
-                <li><a href="javascript:void(0);">4 <span class="sr-only">(current)</span></a></li>
-                <li><a href="javascript:void(0);">» <span class="sr-only">(current)</span></a></li>
-              </ul>
-            </nav>
+           
+           <div class="po-abfy">
+	           <div class="page text-center"><!--分页-->
+	            <nav aria-label="...">
+	              <ul class="pagination">
+	                <li th:class="${pages?.page eq 1} ? 'disabled'">
+	                	<a th:href="|?page=${pages.pre}|" aria-label="上一页"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></a>
+	                </li>
+	                <li th:each="page,row:${pages.pages}" th:class="${page eq pages.page} ? 'active'">
+	                	<a th:href="|?page=${page}|" th:text="${page}">1</a>
+	                </li>
+	                <li th:class="${pages?.page eq pages?.pagecount} ? 'disabled'">
+	                	<a th:href="|?page=${pages.next}|" aria-label="下一页"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>
+	                </li>
+	              </ul>
+	            </nav>
+	          </div>
+	      </div>
+	          
           </div>
-          </div>
-          <div class="mdl-card mdl-cell mdl-cell--8-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" style="margin-bottom: 91px;">
+          
+		<div id="loadbox" class="mdl-card mdl-cell mdl-cell--8-col mdl-cell--12-col-tablet mdl-cell--12-col-phone" style="margin-bottom: 91px;">
+          <form action="#" method="post" name="form1" th:action="@{/info}">
             <div class="spacing">
-              <input class="top-title ng-pristine ng-valid ng-touched"type="text" placeholder="输入笔记标题">
+              <input class="top-title ng-pristine ng-valid ng-touched" type="text" placeholder="输入笔记标题" name="title">
+              <div data-error="title"></div>
               <div class="mdl-card__menu">
                 <a href="javascript:void(0);" title="收藏">
-                  <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                  <div class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
                     <i class="material-icons navRed">favorite</i>
-                  </button>
+                  </div>
                 </a>
                 <a href="javascript:void(0);" title="分享">
-                  <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                  <div class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
                     <i class="material-icons">share</i>
-                  </button>
-                </a>
-                <a href="javascript:void(0);" title="更多">
-                <button id="demo-menu-lower-right2" class="mdl-button mdl-js-button mdl-button--icon">
-                  <i class="material-icons navGreen">more_vert</i>
-                </button>
-                <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="demo-menu-lower-right2">
-                  <li class="mdl-menu__item">查看</li>
-                  <li class="mdl-menu__item">删除</li>
-                </ul>
+                  </div>
                 </a>
               </div>
               <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
                 <div class="section__circle-container__circle mdl-color--primary"></div>
               </div>
               <div id="test-editormd" style="margin-top:30px;">
-                <textarea style="display:none;"  placeholder=""></textarea>
+              	<textarea style="display:none;" name="markdown"></textarea>
               </div> 
             </div>
             <div class="mdl-card__actions">
-              <a href="javascript:void(0);" class="mdl-button">保存</a>
+            	<button type="button" name="sumbit" class="mdl-button">提交</button>
+              <!-- <input name="submit" type="submit"> -->
             </div>
+            </form>
           </div> 
         </div>
         <div class="footer"><!--页脚-->
@@ -262,8 +207,10 @@
 <script src="../static/js/material.min.js" th:src="@{/js/material.min.js}"></script>
 <script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
 <script src="../static/js/editor_md/editormd.min.js" th:src="@{/js/editor_md/editormd.min.js}"></script> 
+<script src="../static/js/base.js" th:src="@{/js/base.js}"/></script>
 <!--显示/隐藏-->
 <script type="text/javascript">
+/*<![CDATA[*/
   $(".hidden-left").click(function(){
     $(".left-list").toggleClass("l-240");
     $(".mdl-layout__content").toggleClass("ml0");
@@ -278,20 +225,23 @@
       $(".dropdown-menu-lg").slideDown();
     })  
   })
-</script>
-<!-- makedown -->
-<script type="text/javascript">
-  var testEditor;
-  $(function() {
-      testEditor = editormd("test-editormd", {
-          width   : "100%",
-          height  : 500,
-          // display : none,
-          syncScrolling : "single",
-          path    : "/js/editor_md/lib/"
-      });
-  });            
+    var testEditor;
+
+    $(function() {
+        testEditor = editormd("test-editormd", {
+            width   : "100%",
+            height  : 500,
+            syncScrolling : "single",
+            path    : "/js/editor_md/lib/"
+        });
+    });   
+    /*]]>*/
 </script> 
-<!-- markdown end -->
+<script>
+ $(document).on("click", "[data-edit]", function() {
+	 var url = $(this).data("edit");
+	 $("#loadbox").load(url);
+ })
+</script>
 </body>
 </html>

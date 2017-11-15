@@ -9,7 +9,7 @@ import java.util.Map;
  */
 public class Result {
 	private String tourl;//跳转url
-	private String msg;//返回的消息 success or error
+	private String msg = null;//返回的消息 success or error
 	private int code;//状态码
 	
 	public static Map<String, Object> toUrl(String url) {
@@ -20,7 +20,11 @@ public class Result {
 	
 	public Result() {
 	}
-
+	
+	public Result(String tourl) {
+		this.tourl=tourl;
+		
+	}
 	public Result (String tourl,int code,String msg){
 		this.tourl=tourl;
 		this.code=code;
